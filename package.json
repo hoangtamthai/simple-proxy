@@ -1,0 +1,14 @@
+{
+  "name": "simple-proxy",
+  "version": "1.0.0",
+  "description": "Simple web proxy server",
+  "main": "index.js",
+  "scripts": {
+    "start": "bun run index.js"
+  },
+  "keywords": [],
+  "author": "Hoang Tam Thai",
+  "license": "MIT",
+  "type": "module",
+  "dependencies": {}
+}
