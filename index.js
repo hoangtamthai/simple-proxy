@@ -42,7 +42,7 @@ const server = http.createServer((req, res) => {
     console.log(targetUrl);
 
     if (!targetUrl) {
-      writeJson(res, 400, { error: 'Missing "url" query parameter' });
+      writeJson(res, 400, { error: 'Missing target Url' });
       return;
     }
 
