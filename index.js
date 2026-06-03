@@ -38,7 +38,8 @@ const server = http.createServer((req, res) => {
   try {
     // Parse the request URL to get query parameters
     const parsedUrl = new URL(req.url, `http://${req.headers.host}`);
-    const targetUrl = parsedUrl.searchParams.get("url");
+    const targetUrl = parsedUrl.pathname.slice(1);
+    console.log(targetUrl);
 
     if (!targetUrl) {
       writeJson(res, 400, { error: 'Missing "url" query parameter' });
@@ -99,5 +100,5 @@ const server = http.createServer((req, res) => {
 const PORT = process.env.PORT || 5591;
 server.listen(PORT, () => {
   console.log(`Proxy server listening on port ${PORT}`);
-  console.log(`Example Usage: http://localhost:${PORT}/?url=https://example.com`);
+  console.log(`Example Usage: http://localhost:${PORT}/https://example.com`);
 });
