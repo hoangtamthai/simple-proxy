@@ -37,12 +37,13 @@ const server = http.createServer((req, res) => {
 
   try {
     // Parse the request URL to get query parameters
-    const parsedUrl = new URL(req.url, `http://${req.headers.host}`);
-    const targetUrl = parsedUrl.pathname.slice(1);
+    const fullUrl = new URL(req.url, `http://${req.headers.host}`);
+    const queryParams = fullUrl.search;
+    const targetUrl = `${fullUrl.pathname.slice(1)}${queryParams}`;
     console.log(targetUrl);
 
     if (!targetUrl) {
-      writeJson(res, 400, { error: 'Missing target Url' });
+      writeJson(res, 400, { error: "Missing target Url" });
       return;
     }
 
@@ -74,8 +75,6 @@ const server = http.createServer((req, res) => {
     }
 
     // Proxy the request to the target URL
-    console.log(`Proxying request to ${target.href}`);
-
     fetch(target.href, { headers: upstreamHeaders })
       .then((fetchResponse) => {
         // Build clean headers — strip hop-by-hop and encoding headers
