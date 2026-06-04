@@ -63,10 +63,20 @@ const server = http.createServer((req, res) => {
       return;
     }
 
+    // Forward relevant client headers to the upstream (stripping hop-by-hop)
+    const upstreamHeaders = {};
+    for (const [key, value] of Object.entries(req.headers)) {
+      const lower = key.toLowerCase();
+      if (HOP_BY_HOP.has(lower)) continue;
+      // Skip internal/host header — fetch sets it from the URL
+      if (lower === "host") continue;
+      upstreamHeaders[key] = value;
+    }
+
     // Proxy the request to the target URL
     console.log(`Proxying request to ${target.href}`);
 
-    fetch(target.href)
+    fetch(target.href, { headers: upstreamHeaders })
       .then((fetchResponse) => {
         // Build clean headers — strip hop-by-hop and encoding headers
         const headers = {};
