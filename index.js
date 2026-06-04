@@ -39,7 +39,8 @@ const server = http.createServer((req, res) => {
     // Parse the request URL to get query parameters
     const fullUrl = new URL(req.url, `http://${req.headers.host}`);
     const queryParams = fullUrl.search;
-    const targetUrl = `${fullUrl.pathname.slice(1)}${queryParams}`;
+    const url = fullUrl.pathname.slice(1);
+    const targetUrl = queryParams ? `${url}${queryParams}` : url;
     console.log(targetUrl);
 
     if (!targetUrl) {
