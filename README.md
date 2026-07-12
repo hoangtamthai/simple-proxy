@@ -1,9 +1,21 @@
 # Simple Proxy
 
-A simple web proxy server that proxies requests to a single URL.
+A simple web proxy server that forwards requests to a target URL.
 
-# Usage
+## Usage
+
+### Direct
 
 ```sh
-curl http://localhost:5591/?url=https://example.com
+curl http://localhost:5591/https://example.com
+```
+
+### Docker
+
+```sh
+# Build
+docker build -t simple-proxy .
+
+# Run
+docker run -p 5591:5591 simple-proxy
 ```
