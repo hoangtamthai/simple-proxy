@@ -1,10 +1,10 @@
-FROM oven/bun:1.3 AS build
+FROM oven/bun:1.4 AS build
 
 WORKDIR /app
 COPY package.json .
 RUN bun install --production
 
-FROM oven/bun:1.3
+FROM oven/bun:1.4
 
 WORKDIR /app
 COPY --from=build /app/node_modules node_modules

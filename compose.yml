@@ -1,0 +1,5 @@
+services:
+  simple-proxy:
+    image: hoangtamthai/simple-proxy
+    ports: 
+      - 5591:5591
